@@ -1,24 +1,39 @@
-# README
+# Chat App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This app will allow users to interact with each other in a real time chatroom. A user can create new channels which will appear on the sidebar for other users. One may join any room and send/receive messages.
 
-Things you may want to cover:
 
-* Ruby version
+## Features
+### MVP
+- Register/Login
+- (CRUD Channels)
+- Real Time Chat within channel(s)
 
-* System dependencies
 
-* Configuration
+### Post MVP
+- /giphy "string"
+- other /commands roll, rock paper scissors, (CR)UD channel if owner
+- owner banhammer
+- owner adminhammer
+- user profiles
+- challenge user to game. quick reaction timer game modal?
 
-* Database creation
 
-* Database initialization
+## Technology
 
-* How to run the test suite
+- React
+- Ruby/Ruby on Rails
+- Postgresql
+- ActionCable / socket.io
+- SemanticUI, Onsen or some other UI library
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+## Wireframes
+![alt text](https://i.imgur.com/GOsGCdO.png "Login")
+![alt text](https://i.imgur.com/50GmOLr.png "Register")
+![alt text](https://i.imgur.com/4XaPry0.png "Search")
+![alt text]( https://i.imgur.com/FXUEgFH.png "Chatroom")
 
-* ...
+
+## ERD
+![alt text](https://i.imgur.com/mos49wX.png "ERD")
