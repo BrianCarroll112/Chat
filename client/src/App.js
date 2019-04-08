@@ -3,23 +3,42 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      msg: ''
+    }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+
+    // send message to websocket for chat channels based on current channel
+    // get current channel id to state?
+  }
+
+  handleChange(e) {
+    const { name, value } = e.target
+
+    this.setState({
+      [name]: value
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="chat-box">
+          <p>Messages:</p>
+        </div>
+        <form onSubmit={this.handleSubmit}>
+          <input  onChange={this.handleChange} value={this.state.msg} name="msg" />
+          <input type="submit"/>
+        </form>
       </div>
     );
   }
