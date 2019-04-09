@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :create]
   get '/login', to: 'users#login'
 
-  resources :channels, only: [:index, :create, :update, :destroy] do
-    resources :messages, :users, only: [:index]
+  resources :rooms, only: [:index, :create, :update, :destroy] do
+    resources :messages, :users, only: [:index, :create]
   end
+
+  mount ActionCable.server => '/cable'
 end
