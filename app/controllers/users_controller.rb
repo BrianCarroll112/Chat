@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
   def create
     user = User.create(user_params)
-    render json: {user: user}
+    serialized_return = ActiveModelSerializers::Adapter::Json.new(
+    UserSerializer.new(user)
+    ).serializable_hash
+    render json: serialized_return
   end
 
   private

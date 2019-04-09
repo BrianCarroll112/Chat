@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ActionCable from 'action-cable-react-jwt';
 
 class App extends Component {
   constructor() {
@@ -27,6 +28,27 @@ class App extends Component {
     this.setState({
       [name]: value
     })
+  }
+
+  openSockets() {
+    let token = localStorage.getItem('token')
+    let socket = {};
+    socket.cable = ActionCable.createConsumer("ws://localhost:3000/cable", token)
+
+    this.roomSubscription = socket.cable.subscriptions.create({channel: "RoomsChannel"}, {
+      connected: function() { console.log("rooms: connected") },             // onConnect
+      disconnected: function() { console.log("rooms: disconnected") },       // onDisconnect
+      received: (data) => { console.log("room transmit received: ", data); } // OnReceive
+    })
+    this.messageSubscription = socket.cable.subscriptions.create({channel: "MessagesChannel"}, {
+      connected: function() { console.log("messages: connected") },             // onConnect
+      disconnected: function() { console.log("messages: disconnected") },       // onDisconnect
+      received: (data) => { console.log("message transmit received: ", data); } // OnReceive
+    })
+  }
+
+  componentDidMount() {
+    this.openSockets()
   }
 
   render() {
