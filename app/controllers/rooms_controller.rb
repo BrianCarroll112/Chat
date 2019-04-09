@@ -7,10 +7,10 @@ class RoomsController < ApplicationController
   def create
     room = Room.new(room_params)
     if room.save!
-      serialized_data = ActiveModelSerializers::Adapter::Json.new(
+      serialized_room = ActiveModelSerializers::Adapter::Json.new(
       RoomSerializer.new(room)
       ).serializable_hash
-      ActionCable.server.broadcast 'rooms_channel', serialized_data
+      ActionCable.server.broadcast 'rooms_channel', serialized_room
       head :ok
     end
   end
