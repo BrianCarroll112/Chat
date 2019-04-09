@@ -7,7 +7,10 @@ class RoomsController < ApplicationController
   def create
     room = Room.new(room_params)
     if room.save!
-      ActionCable.server.broadcast 'rooms_channel', room
+      serialized_data = ActiveModelSerializers::Adapter::Json.new(
+      RoomSerializer.new(room)
+      ).serializable_hash
+      ActionCable.server.broadcast 'rooms_channel', serialized_data
       head :ok
     end
   end
@@ -15,6 +18,6 @@ class RoomsController < ApplicationController
   private
 
   def room_params
-    params.require(:room).permit(:name, :description, :motd)
+    params.require(:room).permit(:name, :description, :motd, :user_id)
   end
 end
