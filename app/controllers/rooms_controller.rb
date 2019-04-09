@@ -1,5 +1,4 @@
 class RoomsController < ApplicationController
-  #before_action :set_user, only: [:show, :update, :destroy]
   def index
     rooms = Room.all
     render json: rooms
