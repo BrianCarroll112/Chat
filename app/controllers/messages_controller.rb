@@ -12,6 +12,8 @@ class MessagesController < ApplicationController
       ActionCable.server.broadcast 'messages_channel', serialized_message
       head :ok
     end
+
+    #handle / commands, call other method with a new giphy key in broadcast w img src to conditionally check on front end
   end
 
   private
