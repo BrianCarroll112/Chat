@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ActionCable from 'action-cable-react-jwt';
+import { getToken } from './services/axios'
 
 class App extends Component {
   constructor() {
@@ -30,10 +31,14 @@ class App extends Component {
     })
   }
 
+  loginScript() {
+
+  }
+
   openSockets() {
-    let token = localStorage.getItem('token')
+    let jwt = localStorage.getItem('jwt')
     let socket = {};
-    socket.cable = ActionCable.createConsumer("ws://localhost:3000/cable", token)
+    socket.cable = ActionCable.createConsumer("ws://localhost:3000/cable", jwt)
 
     this.roomSubscription = socket.cable.subscriptions.create({channel: "RoomsChannel"}, {
       connected: function() { console.log("rooms: connected") },             // onConnect
@@ -47,8 +52,10 @@ class App extends Component {
     })
   }
 
-  componentDidMount() {
-    this.openSockets()
+  async componentDidMount() {
+    await getToken('test@test.com', 'test')
+    this.openSockets();
+    console.log('AFNEIONFLDKSNFAEFNKLEWAFN')
   }
 
   render() {
