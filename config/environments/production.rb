@@ -84,5 +84,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.web_socket_server_url = "wss://infinite-escarpment-51215.herokuapp.com/cable"
-  config.action_cable.allowed_request_origins = ['https://infinite-escarpment-51215.herokuapp.com/', 'http://infinite-escarpment-51215.herokuapp.com/']
+  config.action_cable.allowed_request_origins = ['https://infinite-escarpment-51215.herokuapp.com/', 'http://infinite-escarpment-51215.herokuapp.com/', 'http://cyberdelia.surge.sh', 'https://cyberdelia.surge']
 end
