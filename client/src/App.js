@@ -140,8 +140,12 @@ class App extends Component {
     this.roomSubscription = socket.cable.subscriptions.create({channel: "RoomsChannel"}, {
       connected: function() { console.log("rooms: connected") },             // onConnect
       disconnected: function() { console.log("rooms: disconnected") },       // onDisconnect
-      received: (data) => { console.log("room transmit received: ", data); } // OnReceive
-    })
+      received: (data) => {
+        const room = data.room
+        this.setState(prevState => ({
+          rooms: [...prevState.rooms, room ]
+        }))
+    }})
     this.messageSubscription = socket.cable.subscriptions.create({channel: "MessagesChannel"}, {
       connected: function() { console.log("messages: connected") },             // onConnect
       disconnected: function() { console.log("messages: disconnected") },       // onDisconnect
@@ -150,7 +154,7 @@ class App extends Component {
         this.setState(prevState => ({
           rooms: prevState.rooms.map(room => {
             if (room.id !== data.message.room.id) {
-              return room;
+              return room
             } else {
               room.messages.push({created_at, id, text, user})
               return room
