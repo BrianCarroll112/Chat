@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import ActionCable from 'action-cable-react-jwt';
-import { getToken, createUser } from './services/axios'
+import { getToken, createUser, getRooms } from './services/axios'
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Login from './components/Login'
-import Chat from './components/Chat'
+import ChatView from './components/ChatView'
 import Register from './components/Register'
 
 class App extends Component {
@@ -27,6 +27,7 @@ class App extends Component {
     this.handleRegister = this.handleRegister.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.openSockets = this.openSockets.bind(this)
+    this.getRooms = this.getRooms.bind(this)
   }
 
 
@@ -62,6 +63,22 @@ class App extends Component {
     this.props.history.push('/chat')
   }
 
+  handleLogout() {
+    /*
+    on button click -
+      disconnect sockets this.channel.unsubscribe
+      erase local storage
+      push to login
+    */
+  }
+
+  async getRooms() {
+    const rooms = await getRooms()
+    this.setState({
+      rooms
+    })
+  }
+
   openSockets() {
     let jwt = localStorage.getItem('jwt')
     let socket = {};
@@ -80,6 +97,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+
   }
 
   render() {
@@ -103,8 +121,10 @@ class App extends Component {
                />
           )} />
         <Route exact path="/chat" render={(props) => (
-            <Chat {...props}
+            <ChatView {...props}
               openSockets={this.openSockets}
+              getRooms={this.getRooms}
+              rooms={this.state.rooms}
             />
         )}/>
       </div>

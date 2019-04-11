@@ -1,12 +1,21 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user
+  #before_action :authenticate_user
   # try hitting with axios header bearer auth to avoid passing in user id from front
   # (login only returns token)
 
-
   def index
-    rooms = Room.all
+    roomData = Room.all
+    rooms = []
+
+    roomData.each do |room|
+      serialized_room = ActiveModelSerializers::Adapter::Json.new(
+      RoomSerializer.new(room)
+      ).serializable_hash
+      rooms << room
+    end
+
     render json: rooms
+
   end
 
   def create
