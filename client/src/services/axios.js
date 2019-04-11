@@ -1,5 +1,5 @@
 import axios from 'axios'
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'https://infinite-escarpment-51215.herokuapp.com'
 
 const authApi = axios.create({
   baseURL: BASE_URL,
