@@ -2,12 +2,12 @@ import React from 'react'
 
 export default (props) => (
   <div>
-    <div>
+    <div className="messages-container">
       {props.messages.map(message => (
         <p key={message.id}>{message.user.username}{message.text}</p>
       ))}
     </div>
-    <div>
+    <div className="messages-input-container">
       <input type="text"
         name="message"
         value={props.message}
