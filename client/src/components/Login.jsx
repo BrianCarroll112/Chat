@@ -1,20 +1,22 @@
 import React from 'react'
 
 export default (props) => (
-  <div>
-    <div>
+  <div className="log-in-container">
+    <div className="log-in-inner-container">
       <form>
-        
-        <label forHtml="email">Email</label>
-        <input name="email"
+
+        <input
+          name="email"
+          placeholder="email"
           id="email"
           type="email"
           onChange={(e) => props.handleChange(e)}
           value={props.email}
         />
 
-        <label>Password</label>
-        <input name="password"
+        <input
+          name="password"
+          placeholder="password"
           id="password"
           type="password"
           onChange={props.handleChange}

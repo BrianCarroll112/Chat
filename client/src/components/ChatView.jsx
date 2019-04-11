@@ -51,6 +51,7 @@ class ChatView extends Component {
         </div>
 
         <div className="users-container">
+          <p>Coming Soon: Active User List</p>
         </div>
 
       </div>

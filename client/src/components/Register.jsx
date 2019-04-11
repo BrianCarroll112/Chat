@@ -1,27 +1,30 @@
 import React from 'react';
 
 export default (props) => (
-  <div>
-    <div>
+  <div className="log-in-container">
+    <div className="log-in-inner-container">
       <form onSubmit={(e) => props.handleSubmit(e)}>
 
-        <label forHtml="email">Email</label>
-        <input name="email"
+        <input
+          name="email"
+          placeholder="email"
           id="email"
           type="email"
           onChange={(e) => props.handleChange(e)}
           value={props.email}
         />
 
-        <label forHtml="username">Username</label>
-        <input name="username"
+        <input
+          name="username"
+          placeholder="handle"
           id="username"
           onChange={(e) => props.handleChange(e)}
           value={props.username}
         />
 
-        <label forHtml="placeholder">Placeholder</label>
-        <input name="picture"
+        <input
+          name="picture"
+          placeholder="Coming Soon: Prof Pic"
           id="picture"
           type="text"
           onChange={(e) => props.handleChange(e)}
@@ -29,8 +32,9 @@ export default (props) => (
         />
 
 
-        <label>Password</label>
-        <input name="password"
+        <input
+          name="password"
+          placeholder="password"
           id="password"
           type="password"
           onChange={props.handleChange}

@@ -6,12 +6,14 @@ import {
   createUser,
   getRooms,
   sendMessage,
-  createRoom } from './services/axios'
+  createRoom } from './services/axios';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import Login from './components/Login'
-import ChatView from './components/ChatView'
-import Register from './components/Register'
+import Login from './components/Login';
+import ChatView from './components/ChatView';
+import Register from './components/Register';
+import Foot from './components/Foot';
+import Header from './components/Header';
 
 class App extends Component {
   constructor() {
@@ -172,6 +174,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Header />
         <Route exact path="/" render={(props) => (
             <Login {...props}
               handleChange={this.handleChange}
@@ -207,6 +210,7 @@ class App extends Component {
               handleCreateRoom={this.handleCreateRoom}
             />
         )} />
+      <Foot />
       </div>
     );
   }
