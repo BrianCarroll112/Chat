@@ -1,11 +1,9 @@
 class MessagesController < ApplicationController
-  before_action :authenticate_user
-# try hitting with axios header bearer auth
-# can then take out from permit: user id, also can take out room_id if its always in url params
+  before_action :authenticate_user, :set_user
 # need to then build the message params by adding user id
   def create
     room = Room.find(params[:room_id])
-    message = room.messages.new(message_params)
+    message = room.messages.new(message_params.merge(:user_id => @user[:user][:id]))
 
     if message.save!
       serialized_message = ActiveModelSerializers::Adapter::Json.new(
@@ -20,7 +18,13 @@ class MessagesController < ApplicationController
 
   private
 
+  def set_user
+    @user = ActiveModelSerializers::Adapter::Json.new(
+      UserSerializer.new(current_user)
+    ).serializable_hash
+  end
+
   def message_params
-    params.require(:message).permit(:text, :room_id, :user_id)
+    params.require(:message).permit(:text, :room_id)
   end
 end

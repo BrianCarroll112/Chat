@@ -10,20 +10,23 @@ export default (props) => (
           id="email"
           type="email"
           onChange={(e) => props.handleChange(e)}
-          value={props.email} />
+          value={props.email}
+        />
 
         <label forHtml="username">Username</label>
         <input name="username"
           id="username"
           onChange={(e) => props.handleChange(e)}
-          value={props.username} />
+          value={props.username}
+        />
 
         <label forHtml="placeholder">Placeholder</label>
         <input name="picture"
           id="picture"
           type="text"
           onChange={(e) => props.handleChange(e)}
-          value={props.picture} />
+          value={props.picture}
+        />
 
 
         <label>Password</label>
@@ -31,7 +34,8 @@ export default (props) => (
           id="password"
           type="password"
           onChange={props.handleChange}
-          value={props.password} />
+          value={props.password}
+        />
 
         <input type="submit" value="Register" />
       </form>

@@ -4,14 +4,14 @@ export default (props) => (
   <div>
     <div>
       {props.messages.map(message => (
-        <p key={message.id}>{message.text}</p>
+        <p key={message.id}>{message.user.username}{message.text}</p>
       ))}
     </div>
     <div>
       <input type="text"
         name="message"
         value={props.message}
-        onChange={props.onChange}
+        onChange={(e) => props.handleChange(e)}
         placeholder="Type Here..."
         />
       <button onClick={(e) => props.handleSubmit(e)}>Send</button>

@@ -1,7 +1,10 @@
 import axios from 'axios'
 const BASE_URL = 'http://localhost:3000'
 
-//all http unrestricted for now, add auth header to api config later
+const authApi = axios.create({
+  baseURL: BASE_URL,
+  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
+})
 
 const getToken =  async (email, password) => {
   try {
@@ -29,9 +32,14 @@ const getRooms = async () => {
   return resp.data
 }
 
+const sendMessage = async (text, room_id) => {
+  await authApi.post(`/messages`, {text, room_id})
+}
+
 
 export {
   getToken,
   createUser,
-  getRooms
+  getRooms,
+  sendMessage
 }

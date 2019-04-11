@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ActionCable from 'action-cable-react-jwt';
-import { getToken, createUser, getRooms } from './services/axios'
+import { getToken, createUser, getRooms, sendMessage } from './services/axios'
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Login from './components/Login'
@@ -18,7 +18,10 @@ class App extends Component {
         email: '',
         password: '',
         picture: '',
-        username: ''
+        username: '',
+        name: '',
+        description: '',
+        motd: '',
       },
       rooms: [],
       currentRoom: null,
@@ -26,6 +29,7 @@ class App extends Component {
     }
 
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleMessageSend = this.handleMessageSend.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.openSockets = this.openSockets.bind(this)
@@ -65,6 +69,23 @@ class App extends Component {
     const jwt = await getToken(email, password)
     localStorage.setItem('jwt', jwt)
     this.props.history.push('/chat')
+  }
+
+  async handleCreateRoom(e) {
+    e.preventDefault()
+    // post rooms
+    // set currentRoom to created room id , return from controller
+  }
+
+  async handleMessageSend(e) {
+    e.preventDefault()
+    await sendMessage(this.state.form.message, this.state.currentRoom)
+    this.setState(prevState => ({
+      form: {
+        ...prevState.form,
+        message:''
+      }
+    }))
   }
 
   handleLogout() {
@@ -146,8 +167,14 @@ class App extends Component {
               exitRoom={this.exitRoom}
               currentRoom={this.state.currentRoom}
               messages={this.state.currentMessages}
+              handleMessageSend={this.handleMessageSend}
+              handleChange={this.handleChange}
+              message={this.state.form.message}
+              name={this.state.form.name}
+              description={this.state.form.description}
+              motd={this.state.form.motd}
             />
-        )}/>
+        )} />
       </div>
     );
   }
