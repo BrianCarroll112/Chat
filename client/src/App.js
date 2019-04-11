@@ -1,38 +1,55 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ActionCable from 'action-cable-react-jwt';
 import { getToken } from './services/axios'
+import { Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import Login from './components/Login'
+import Chat from './components/Chat'
+import Register from './components/Register'
 
 class App extends Component {
   constructor() {
     super()
 
     this.state = {
-      msg: ''
+      form: {
+        message: '',
+        email: '',
+        password: '',
+        picture: '',
+        username: ''
+      },
+      rooms: []
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.openSockets = this.openSockets.bind(this)
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
-
-    // send message to websocket for chat channels based on current channel
-    // get current channel id to state?
-  }
 
   handleChange(e) {
     const { name, value } = e.target
 
-    this.setState({
-      [name]: value
+    this.setState(prevState => ({
+      form: {
+        ...prevState.form,
+        [name]: value
+      }
     })
+    )
   }
 
-  loginScript() {
-
+  async handleLogin(e) {
+    e.preventDefault()
+    const jwt = await getToken(this.state.form.email, this.state.form.password)
+    if (jwt === 404) {
+      alert('Invalid Credentials');
+    } else {
+      localStorage.setItem('jwt', jwt )
+      this.props.history.push('/chat')
+    }
   }
 
   openSockets() {
@@ -53,24 +70,36 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await getToken('test@test.com', 'test')
-    this.openSockets();
-    console.log('AFNEIONFLDKSNFAEFNKLEWAFN')
   }
 
   render() {
     return (
       <div className="App">
-        <div className="chat-box">
-          <p>Messages:</p>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <input  onChange={this.handleChange} value={this.state.msg} name="msg" />
-          <input type="submit"/>
-        </form>
+        <Route exact path="/" render={(props) => (
+            <Login {...props}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleLogin}
+              email={this.state.form.email}
+              password={this.state.form.password} />
+          )} />
+        <Route exact path="/register" render={(props) => (
+            <Register {...props}
+              handleChange={this.handleChange}
+              handleSubmit={this.handleRegister}
+              email={this.state.form.email}
+              password={this.state.form.password}
+              picture={this.state.form.picture}
+              username={this.state.form.username}
+               />
+          )} />
+        <Route exact path="/chat" render={(props) => (
+            <Chat {...props}
+              openSockets={this.openSockets}
+            />
+        )}/>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
