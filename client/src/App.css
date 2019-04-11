@@ -56,3 +56,18 @@ header {
   display: grid;
   grid-template-columns: 15% auto 15%
 }
+
+.create-room-container {
+  height:100%;
+  width:100%;
+  text-align:center;
+  padding-top:5%;
+}
+
+.create-room-container form {
+  width:50%;
+  text-align:center;
+  margin: 5% auto;
+  display:flex;
+  flex-direction: column;
+}
