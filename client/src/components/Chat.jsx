@@ -1,10 +1,11 @@
 import React from 'react'
+const moment = require('moment')
 
 export default (props) => (
-  <div>
+  <div className="messages-outer-container">
     <div className="messages-container">
       {props.messages.map(message => (
-        <p key={message.id}>{message.user.username}{message.text}</p>
+        <p className="message" key={message.id}>[{moment(message.created_at).format("MM/DD/YYYY hh:mm:ss")}] {message.user.username}: {message.text}</p>
       ))}
     </div>
     <div className="messages-input-container">
