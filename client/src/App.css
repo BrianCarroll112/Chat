@@ -91,6 +91,10 @@ header {
   justify-content: center;
 }
 
+.room:hover {
+  background-color: darkgray;
+}
+
 .room p:first-child {
   margin-bottom: 10px;
 }
@@ -115,10 +119,17 @@ header {
 
 .messages-container {
   height:93%;
+  max-height: 480px;
   display:flex;
   flex-direction:column;
   justify-content: flex-end;
   padding-left: 1%;
+  overflow-y: scroll;
+}
+
+.messages-overflow-container {
+  overflow-y: scroll;
+  max-height:480px;
 }
 
 .messages-input-container {
@@ -130,9 +141,18 @@ header {
   width:85%;
 }
 
-.messages-input-container button {
+.messages-input-container button, #submit-button{
   height: 127%;
   width: 7.1%;
+  border:0 none;
+}
+
+.messages-input-container button {
+  border-left: 1px solid lightgray;
+}
+
+.messages-input-container button:hover, #submit-button:hover {
+  background-color: darkgray;
 }
 
 .message {

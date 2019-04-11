@@ -33,6 +33,7 @@ class App extends Component {
       rooms: [],
       currentRoom: null,
       currentMessages: [],
+      currentRoomBanner: {},
     }
 
     this.handleLogin = this.handleLogin.bind(this)
