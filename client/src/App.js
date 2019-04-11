@@ -145,7 +145,19 @@ class App extends Component {
     this.messageSubscription = socket.cable.subscriptions.create({channel: "MessagesChannel"}, {
       connected: function() { console.log("messages: connected") },             // onConnect
       disconnected: function() { console.log("messages: disconnected") },       // onDisconnect
-      received: (data) => { console.log("message transmit received: ", data); } // OnReceive
+      received: (data) => {
+        const { created_at, id, text, user } = data.message
+        this.setState(prevState => ({
+          rooms: prevState.rooms.map(room => {
+            if (room.id !== data.message.room.id) {
+              return room;
+            } else {
+              room.messages.push({created_at, id, text, user})
+              return room
+            }
+          })
+        }))
+      }
     })
   }
 
