@@ -36,10 +36,16 @@ const sendMessage = async (text, room_id) => {
   await authApi.post(`/messages`, {text, room_id})
 }
 
+const createRoom = async (name, description, motd) => {
+  const resp = await authApi.post('/rooms', { name, description, motd })
+  return resp.data
+}
+
 
 export {
   getToken,
   createUser,
   getRooms,
-  sendMessage
+  sendMessage,
+  createRoom
 }

@@ -1,7 +1,5 @@
 class RoomsController < ApplicationController
-  #before_action :authenticate_user
-  # try hitting with axios header bearer auth to avoid passing in user id from front
-  # (login only returns token)
+  before_action :authenticate_user, :set_user, except: [:index]
 
   def index
     roomData = Room.all
@@ -19,7 +17,7 @@ class RoomsController < ApplicationController
   end
 
   def create
-    room = Room.new(room_params)
+    room = Room.new(room_params.merge(:user_id => @user[:user][:id]))
     if room.save!
       serialized_room = ActiveModelSerializers::Adapter::Json.new(
       RoomSerializer.new(room)
@@ -31,7 +29,13 @@ class RoomsController < ApplicationController
 
   private
 
+  def set_user
+    @user = ActiveModelSerializers::Adapter::Json.new(
+      UserSerializer.new(current_user)
+    ).serializable_hash
+  end
+
   def room_params
-    params.require(:room).permit(:name, :description, :motd, :user_id)
+    params.require(:room).permit(:name, :description, :motd)
   end
 end

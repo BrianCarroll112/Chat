@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user, :set_user
-# need to then build the message params by adding user id
+
   def create
     room = Room.find(params[:room_id])
     message = room.messages.new(message_params.merge(:user_id => @user[:user][:id]))

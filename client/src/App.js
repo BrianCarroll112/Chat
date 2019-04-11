@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import ActionCable from 'action-cable-react-jwt';
-import { getToken, createUser, getRooms, sendMessage } from './services/axios'
+import {
+  getToken,
+  createUser,
+  getRooms,
+  sendMessage,
+  createRoom } from './services/axios'
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Login from './components/Login'
@@ -34,6 +39,7 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.openSockets = this.openSockets.bind(this)
     this.getRooms = this.getRooms.bind(this)
+    this.handleCreateRoom = this.handleCreateRoom.bind(this)
     this.enterRoom = this.enterRoom.bind(this)
     this.exitRoom = this.exitRoom.bind(this)
   }
@@ -73,8 +79,17 @@ class App extends Component {
 
   async handleCreateRoom(e) {
     e.preventDefault()
-    // post rooms
-    // set currentRoom to created room id , return from controller
+    const { name, description, motd } = this.state.form
+    const room = await createRoom(name, description, motd)
+    this.setState(prevState => ({
+      form: {
+        ...prevState.form,
+        name: '',
+        description: '',
+        motd: '',
+      }
+    }))
+    this.enterRoom(room.id, [{id:0, text:'Welcome! Hope some people join soon...', user:{username:'NotMuchHelp'}}])
   }
 
   async handleMessageSend(e) {
@@ -173,6 +188,7 @@ class App extends Component {
               name={this.state.form.name}
               description={this.state.form.description}
               motd={this.state.form.motd}
+              handleCreateRoom={this.handleCreateRoom}
             />
         )} />
       </div>
