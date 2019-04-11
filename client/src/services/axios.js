@@ -3,7 +3,6 @@ const BASE_URL = 'http://localhost:3000'
 
 const authApi = axios.create({
   baseURL: BASE_URL,
-  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
 })
 
 const getToken =  async (email, password) => {
@@ -33,10 +32,12 @@ const getRooms = async () => {
 }
 
 const sendMessage = async (text, room_id) => {
+  authApi.defaults.headers.common['Authorization'] = await localStorage.getItem('jwt');
   await authApi.post(`/messages`, {text, room_id})
 }
 
 const createRoom = async (name, description, motd) => {
+  authApi.defaults.headers.common['Authorization'] = await localStorage.getItem('jwt');
   const resp = await authApi.post('/rooms', { name, description, motd })
   return resp.data
 }
