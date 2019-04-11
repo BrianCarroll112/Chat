@@ -21,6 +21,8 @@ class App extends Component {
         username: ''
       },
       rooms: [],
+      currentRoom: null,
+      currentMessages: [],
     }
 
     this.handleLogin = this.handleLogin.bind(this)
@@ -28,6 +30,8 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.openSockets = this.openSockets.bind(this)
     this.getRooms = this.getRooms.bind(this)
+    this.enterRoom = this.enterRoom.bind(this)
+    this.exitRoom = this.exitRoom.bind(this)
   }
 
 
@@ -79,6 +83,19 @@ class App extends Component {
     })
   }
 
+  enterRoom(id, messages) {
+    this.setState({
+      currentRoom: id,
+      currentMessages: messages
+    })
+  }
+
+  exitRoom() {
+    this.setState({
+      currentRoom: null
+    })
+  }
+
   openSockets() {
     let jwt = localStorage.getItem('jwt')
     let socket = {};
@@ -125,6 +142,10 @@ class App extends Component {
               openSockets={this.openSockets}
               getRooms={this.getRooms}
               rooms={this.state.rooms}
+              enterRoom={this.enterRoom}
+              exitRoom={this.exitRoom}
+              currentRoom={this.state.currentRoom}
+              messages={this.state.currentMessages}
             />
         )}/>
       </div>
