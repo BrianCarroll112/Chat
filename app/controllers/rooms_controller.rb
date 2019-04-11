@@ -1,4 +1,9 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user
+  # try hitting with axios header bearer auth to avoid passing in user id from front
+  # (login only returns token)
+
+
   def index
     rooms = Room.all
     render json: rooms

@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
-  before_action :set_user
-
+  before_action :authenticate_user
+# try hitting with axios header bearer auth
+# can then take out from permit: user id, also can take out room_id if its always in url params
+# need to then build the message params by adding user id
   def create
     room = Room.find(params[:room_id])
     message = room.messages.new(message_params)
@@ -17,10 +19,6 @@ class MessagesController < ApplicationController
   end
 
   private
-
-  def set_user
-    @user = User.find(message_params[:user_id])
-  end
 
   def message_params
     params.require(:message).permit(:text, :room_id, :user_id)

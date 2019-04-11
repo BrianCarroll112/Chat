@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ActionCable from 'action-cable-react-jwt';
-import { getToken } from './services/axios'
+import { getToken, createUser } from './services/axios'
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Login from './components/Login'
@@ -20,10 +20,11 @@ class App extends Component {
         picture: '',
         username: ''
       },
-      rooms: []
+      rooms: [],
     }
 
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleRegister = this.handleRegister.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.openSockets = this.openSockets.bind(this)
   }
@@ -52,6 +53,15 @@ class App extends Component {
     }
   }
 
+  async handleRegister(e) {
+    e.preventDefault()
+    const { username, password, picture, email } = this.state.form
+    const user = await createUser(username, password, picture, email)
+    const jwt = await getToken(email, password)
+    localStorage.setItem('jwt', jwt)
+    this.props.history.push('/chat')
+  }
+
   openSockets() {
     let jwt = localStorage.getItem('jwt')
     let socket = {};
@@ -69,7 +79,7 @@ class App extends Component {
     })
   }
 
-  async componentDidMount() {
+  componentDidMount() {
   }
 
   render() {

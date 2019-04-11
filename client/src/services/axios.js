@@ -10,7 +10,19 @@ const getToken =  async (email, password) => {
   }
 }
 
+const createUser = async (username, password, picture, email) => {
+  const resp = await axios.post(`${BASE_URL}/users`, {
+    user: {
+      username,
+      password,
+      picture,
+      email
+    }
+  })
+}
+
 
 export {
-  getToken
+  getToken,
+  createUser
 }
