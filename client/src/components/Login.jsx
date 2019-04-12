@@ -6,6 +6,7 @@ export default (props) => (
       <form>
 
         <input
+          autocomplete="off"
           name="email"
           placeholder="email"
           id="email"

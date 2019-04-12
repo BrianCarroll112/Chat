@@ -8,6 +8,7 @@ export default (props) => (
     </div>
     <form onSubmit={(e) => props.handleSubmit(e)}>
       <input
+        autocomplete="off"
         name="name"
         placeholder="room name"
         id="name"
@@ -17,6 +18,7 @@ export default (props) => (
       />
 
       <textarea
+        autocomplete="off"
         name="description"
         placeholder="description"
         id="description"
@@ -25,6 +27,7 @@ export default (props) => (
       />
 
       <input
+        autocomplete="off"
         name="motd"
         placeholder="message of the day"
         id="motd"
