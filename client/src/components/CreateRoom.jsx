@@ -36,7 +36,7 @@ export default (props) => (
         value={props.motd}
       />
 
-      <input type="submit" value="Create" />
+    <input id="submit-room" type="submit" value="Create" />
     </form>
   </div>
 )

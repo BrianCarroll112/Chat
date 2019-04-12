@@ -93,27 +93,32 @@ header img{
 }
 
 .create-room-container form {
-  width:50%;
+  width:42%;
   text-align:center;
   margin: 5% auto;
   display:flex;
   flex-direction: column;
   text-align:center;
-  margin-top:10%;
+  margin-top:8%;
 }
 
 .create-room-container div {
   margin-top:5%;
 }
 .create-room-container form input, textarea {
-  text-align: center;
+  text-align: left;
   height: 2em;
   padding-bottom:0
+}
+
+.create-room-container form input {
+  line-height:2.2em;
 }
 
 textarea {
   resize:none;
   overflow:auto;
+  padding-top: 8px;
 }
 
 .rooms-container {
@@ -229,4 +234,21 @@ input[type="text"], textarea {
 input:focus, textarea:focus {
   outline:none;
   appearance:none;
+}
+
+#submit-room {
+  height:2.2em;
+  text-align:center;
+}
+
+#submit-room:hover {
+  background-color: #282828;
+}
+
+.message-time-sent {
+  color: #5552ab
+}
+
+.message-username {
+  color: WhiteSmoke;
 }
