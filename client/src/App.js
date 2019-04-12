@@ -115,6 +115,9 @@ class App extends Component {
     this.messageSubscription.unsubscribe()
     localStorage.removeItem('jwt')
     this.props.history.push('/')
+    this.setState({
+      currentRoom: null
+    })
   }
 
   async getRooms() {
@@ -131,8 +134,8 @@ class App extends Component {
     })
     if (input !== null) {
       input.forEach(message => messages.unshift(message))
-    } else if ( messages.length === 0 || messages[0].user.username !== 'MOTD' ) {
-            messages.unshift({created_at: moment.now(), id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].motd || 'No MOTD'}`, user:{username:'MOTD'}}, {created_at: moment.now() , id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].description || 'No Description'}` , user:{username:'DESCRIPTION'}})
+    } else if ( messages.length === 0 || messages[0].user.username !== '[MOTD]' ) {
+            messages.unshift({created_at: moment.now(), id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].motd || 'No MOTD'}`, user:{username:'[MOTD]'}}, {created_at: moment.now() , id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].description || 'No Description'}` , user:{username:'[DESCRIPTION]'}})
           }
           this.setState({
             currentMessages: messages
