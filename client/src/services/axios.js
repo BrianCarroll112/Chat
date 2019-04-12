@@ -1,14 +1,13 @@
 import axios from 'axios'
 const BASE_URL = 'http://localhost:3000'
 
-const authApi = axios.create({
+const api = axios.create({
   baseURL: BASE_URL,
-  headers: {'Authorization': `Bearer ${localStorage.getItem('jwt')}`}
 })
 
 const getToken =  async (email, password) => {
   try {
-    const resp = await axios.post(`${BASE_URL}/user_token`, {auth: {email, password}})
+    const resp = await api.post(`/user_token`, {auth: {email, password}})
     return (resp.data.jwt)
   } catch(e) {
     return (404)
@@ -16,7 +15,7 @@ const getToken =  async (email, password) => {
 }
 
 const createUser = async (username, password, picture, email) => {
-  const resp = await axios.post(`${BASE_URL}/users`, {
+  const resp = await api.post(`/users`, {
     user: {
       username,
       password,
@@ -27,16 +26,17 @@ const createUser = async (username, password, picture, email) => {
 }
 
 const getRooms = async () => {
-  const resp = await axios.get(`${BASE_URL}/rooms`)
-  console.log(resp.data)
+  const resp = await api.get(`/rooms`)
   return resp.data
 }
 
 const sendMessage = async (text, room_id) => {
+  api.defaults.headers.common['Authorization'] = await localStorage.getItem('jwt');
   await authApi.post(`/messages`, {text, room_id})
 }
 
 const createRoom = async (name, description, motd) => {
+  api.defaults.headers.common['Authorization'] = await localStorage.getItem('jwt');
   const resp = await authApi.post('/rooms', { name, description, motd })
   return resp.data
 }

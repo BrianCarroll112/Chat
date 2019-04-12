@@ -66,7 +66,7 @@ class App extends Component {
     if (jwt === 404) {
       alert('Invalid Credentials');
     } else {
-      localStorage.setItem('jwt', jwt )
+      await localStorage.setItem('jwt', jwt )
       this.props.history.push('/chat')
     }
   }
@@ -76,7 +76,7 @@ class App extends Component {
     const { username, password, picture, email } = this.state.form
     const user = await createUser(username, password, picture, email)
     const jwt = await getToken(email, password)
-    localStorage.setItem('jwt', jwt)
+    await localStorage.setItem('jwt', jwt)
     this.props.history.push('/chat')
   }
 
