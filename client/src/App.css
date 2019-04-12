@@ -18,17 +18,20 @@ input, textarea {
 button {
   font-family: 'VT323', monospace;
 }
+
 button, input, textarea {
   background-color: #000;
   color: #489449;
   font-size:1em;
 }
+
 .App {
   height: 100vh;
   width: 100vw;
   display: grid;
   grid-template-rows: 12% auto 8%;
 }
+
 footer {
   color:#489449;
   display:flex;
@@ -98,6 +101,7 @@ header img{
 
 .log-in-inner-container form button:hover {
   background-color:#282828;
+  cursor:pointer;
 }
 
 
@@ -164,6 +168,7 @@ textarea {
 
 .room:hover {
   background-color: #282828;
+  cursor:pointer;
 }
 
 .room p:first-child {
@@ -230,6 +235,7 @@ textarea {
 
 .messages-input-container button:hover, #submit-button:hover {
   background-color: #282828;
+  cursor:pointer;
 }
 
 .message {
@@ -247,6 +253,7 @@ textarea {
   font-size:60px;
   top:8px;
   right:8px;
+  cursor: pointer;
 }
 
 #title {
@@ -257,6 +264,10 @@ textarea {
 
 input[type="text"], textarea {
   padding-left: 10px
+}
+
+#picture {
+  text-align:left;
 }
 
 input:focus, textarea:focus {
@@ -274,6 +285,7 @@ input:focus, textarea:focus {
 
 #submit-room:hover {
   background-color: #282828;
+  cursor:pointer;
 }
 
 .message-time-sent {
@@ -291,5 +303,6 @@ input:focus, textarea:focus {
   margin-top:8px;
 }
 #register-submit:hover {
-  background-color:#282828
+  background-color:#282828;
+  cursor:pointer;
 }

@@ -176,7 +176,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Route path="/" render={(props) => (
+          <Header {...props}/>
+          )} />
         <Route exact path="/" render={(props) => (
             <Login {...props}
               handleChange={this.handleChange}

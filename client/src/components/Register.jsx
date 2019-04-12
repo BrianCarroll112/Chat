@@ -27,7 +27,7 @@ export default (props) => (
         <input
           autocomplete="off"
           name="picture"
-          placeholder="Coming Soon: Prof Pic"
+          placeholder="soon: pictures"
           id="picture"
           type="text"
           onChange={(e) => props.handleChange(e)}
