@@ -131,8 +131,8 @@ class App extends Component {
     })
     if (input !== null) {
       input.forEach(message => messages.unshift(message))
-    } else if ( messages.length === 0 || messages[0].id !== 999999993 ) {
-            messages.unshift({created_at: moment.now() , id: 999999993, text: `${this.state.rooms[id-1].description || 'No Description'}` , user:{username:'DESCRIPTION'}}, {created_at: moment.now(), id: 999999992, text: `${this.state.rooms[id-1].motd || 'No MOTD'}`, user:{username:'MOTD'}})
+    } else if ( messages.length === 0 || messages[0].user.username !== 'MOTD' ) {
+            messages.unshift({created_at: moment.now(), id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].motd || 'No MOTD'}`, user:{username:'MOTD'}}, {created_at: moment.now() , id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].description || 'No Description'}` , user:{username:'DESCRIPTION'}})
           }
           this.setState({
             currentMessages: messages

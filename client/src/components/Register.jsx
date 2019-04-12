@@ -6,7 +6,7 @@ export default (props) => (
       <form onSubmit={(e) => props.handleSubmit(e)}>
 
         <input
-          autocomplete="off"
+          autoComplete="off"
           name="email"
           placeholder="email"
           id="email"
@@ -16,7 +16,7 @@ export default (props) => (
         />
 
         <input
-          autocomplete="off"
+          autoComplete="off"
           name="username"
           placeholder="handle"
           id="username"
@@ -25,7 +25,7 @@ export default (props) => (
         />
 
         <input
-          autocomplete="off"
+          autoComplete="off"
           name="picture"
           placeholder="soon: pictures"
           id="picture"
@@ -36,7 +36,7 @@ export default (props) => (
 
 
         <input
-          autocomplete="off"
+          autoComplete="off"
           name="password"
           placeholder="password"
           id="password"

@@ -5,7 +5,7 @@ class Denied extends Component {
     super(props)
   }
   componentDidMount() {
-    setInterval(() => this.props.history.push('/'), 4000)
+    setTimeout(() => this.props.history.push('/'), 4000)
   }
 
   render() {
