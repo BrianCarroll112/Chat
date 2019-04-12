@@ -121,8 +121,7 @@ header {
   height:93%;
   max-height: 480px;
   display:flex;
-  flex-direction:column;
-  justify-content: flex-end;
+  flex-direction:column-reverse;
   padding-left: 1%;
   overflow-y: scroll;
 }

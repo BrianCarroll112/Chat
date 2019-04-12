@@ -117,6 +117,7 @@ class App extends Component {
 
   async getRooms() {
     const rooms = await getRooms()
+    await rooms.map(room => room.messages.reverse())
     this.setState({
       rooms
     })
@@ -159,7 +160,7 @@ class App extends Component {
             if (room.id !== data.message.room.id) {
               return room
             } else {
-              room.messages.push({created_at, id, text, user})
+              room.messages.unshift({created_at, id, text, user})
               return room
             }
           })
