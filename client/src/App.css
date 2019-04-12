@@ -64,12 +64,12 @@ header img{
 }
 
 .log-in-inner-container {
-  border: 1px solid rgba(72, 148, 73, .5);
   height:50%;
   width:25%;
   display:flex;
   justify-content: center;
   align-items: center;
+  margin-top:-10%;
 }
 
 .log-in-inner-container form{
@@ -79,6 +79,28 @@ header img{
   justify-content: center;
   width:50%;
 }
+
+.log-in-inner-container input {
+  width: 135%;
+  margin-top:20%;
+}
+
+.log-in-inner-container form button {
+  border: none;
+  border-top: 2px solid rgba(72, 148, 73, .6);
+  border-bottom: 2px solid rgba(72, 148, 73, .6);
+  margin-top:10%;
+  width:135%;
+}
+.log-in-inner-container form button:first-of-type{
+  margin-top:20%;
+}
+
+.log-in-inner-container form button:hover {
+  background-color:#282828;
+}
+
+
 
 .chatview-container {
   display: grid;
@@ -188,12 +210,18 @@ textarea {
   overflow-y:scroll;
 }
 
-.messages-input-container button, #submit-button{
+.messages-input-container button, #submit-button {
   height: 124%;
   width: 7.1%;
   border:0 none;
   border: 1px solid rgba(72, 148, 73, .6);
   padding-bottom: 5px;
+}
+
+#submit-button {
+  border: 2px solid rgba(72, 148, 73, .6);
+  border-right: 1px solid rgba(72, 148, 73, .6);
+  border-top: 1px solid rgba(72, 148, 73, .6);
 }
 
 .messages-input-container button {
@@ -239,7 +267,10 @@ input:focus, textarea:focus {
 #submit-room {
   height:2.2em;
   text-align:center;
-}
+  margin-top:10px;
+  border-top:2px solid rgba(72, 148, 73, .5);
+  border-bottom:2px solid rgba(72, 148, 73, .5);
+  }
 
 #submit-room:hover {
   background-color: #282828;
@@ -251,4 +282,14 @@ input:focus, textarea:focus {
 
 .message-username {
   color: WhiteSmoke;
+}
+
+#register-submit {
+  border-top:2px solid rgba(72, 148, 73, .5);
+  border-bottom:2px solid rgba(72, 148, 73, .5);
+  padding: 10px 0;
+  margin-top:8px;
+}
+#register-submit:hover {
+  background-color:#282828
 }

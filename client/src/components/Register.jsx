@@ -45,7 +45,7 @@ export default (props) => (
           value={props.password}
         />
 
-        <input type="submit" value="Register" />
+      <input id="register-submit" type="submit" value="Register" />
       </form>
     </div>
   </div>
