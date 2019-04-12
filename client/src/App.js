@@ -15,6 +15,7 @@ import Register from './components/Register';
 import Foot from './components/Foot';
 import Header from './components/Header';
 import Denied from './components/Denied';
+import moment from 'moment';
 
 class App extends Component {
   constructor() {
@@ -94,7 +95,7 @@ class App extends Component {
         motd: '',
       }
     }))
-    this.enterRoom(room.id, [{id:0, text:'Welcome! Hope some people join soon...', user:{username:'NotMuchHelp'}}])
+    this.enterRoom(room.id, [], [{id:0, text:'Welcome! Hope some people join soon...', user:{username:'NotMuchHelp'}, created_at:'00:00:00'}])
   }
 
   async handleMessageSend(e) {
@@ -124,12 +125,19 @@ class App extends Component {
     })
   }
 
-  enterRoom(id, messages) {
+  enterRoom(id, messages, input=null) {
     this.setState({
       currentRoom: id,
-      currentMessages: messages
     })
-  }
+    if (input !== null) {
+      input.forEach(message => messages.unshift(message))
+          } else {
+            messages.unshift({created_at: moment.now() , id: 999999993, text: `${this.state.rooms[id-1].description || 'No Description'}` , user:{username:'ADMIN'}}, {created_at: moment.now(), id: 999999992, text: `${this.state.rooms[id-1].motd || 'No MOTD'}`, user:{username:'ADMIN'}})
+          }
+          this.setState({
+            currentMessages: messages
+          })
+        }
 
   exitRoom() {
     this.setState({
