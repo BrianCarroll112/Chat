@@ -306,3 +306,21 @@ input:focus, textarea:focus {
   background-color:#282828;
   cursor:pointer;
 }
+
+#denied-div {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#access-denied {
+  color:red;
+  font-size: 7em;
+  animation: blinker .6s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}

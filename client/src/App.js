@@ -14,6 +14,7 @@ import ChatView from './components/ChatView';
 import Register from './components/Register';
 import Foot from './components/Foot';
 import Header from './components/Header';
+import Denied from './components/Denied';
 
 class App extends Component {
   constructor() {
@@ -37,6 +38,7 @@ class App extends Component {
     }
 
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
     this.handleMessageSend = this.handleMessageSend.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -64,7 +66,7 @@ class App extends Component {
     e.preventDefault()
     const jwt = await getToken(this.state.form.email, this.state.form.password)
     if (jwt === 404) {
-      alert('Invalid Credentials');
+      this.props.history.push('/denied')
     } else {
       await localStorage.setItem('jwt', jwt )
       this.props.history.push('/chat')
@@ -106,13 +108,12 @@ class App extends Component {
     }))
   }
 
-  handleLogout() {
-    /*
-    on button click -
-      disconnect sockets this.channel.unsubscribe
-      erase local storage
-      push to login
-    */
+  handleLogout(e) {
+    e.preventDefault()
+    this.roomSubscription.unsubscribe()
+    this.messageSubscription.unsubscribe()
+    localStorage.removeItem('jwt')
+    this.props.history.push('/')
   }
 
   async getRooms() {
@@ -177,7 +178,7 @@ class App extends Component {
     return (
       <div className="App">
         <Route path="/" render={(props) => (
-          <Header {...props}/>
+          <Header {...props} handleLogout={this.handleLogout}/>
           )} />
         <Route exact path="/" render={(props) => (
             <Login {...props}
@@ -214,6 +215,9 @@ class App extends Component {
               handleCreateRoom={this.handleCreateRoom}
             />
         )} />
+      <Route exact path="/denied" render={(props) => (
+          <Denied {...props} />
+      )} />
       <Foot />
       </div>
     );
