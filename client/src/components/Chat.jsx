@@ -12,7 +12,9 @@ export default (props) => (
       ))}
     </div>
     <form className="messages-input-container">
-      <input type="text"
+      <input
+        type="text"
+        autocomplete="off"
         name="message"
         value={props.message}
         onChange={(e) => props.handleChange(e)}
