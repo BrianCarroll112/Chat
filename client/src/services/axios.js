@@ -32,12 +32,12 @@ const getRooms = async () => {
 
 const sendMessage = async (text, room_id) => {
   api.defaults.headers.common['Authorization'] = await localStorage.getItem('jwt');
-  await authApi.post(`/messages`, {text, room_id})
+  await api.post(`/messages`, {text, room_id})
 }
 
 const createRoom = async (name, description, motd) => {
   api.defaults.headers.common['Authorization'] = await localStorage.getItem('jwt');
-  const resp = await authApi.post('/rooms', { name, description, motd })
+  const resp = await api.post('/rooms', { name, description, motd })
   return resp.data
 }
 
