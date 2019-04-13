@@ -151,7 +151,7 @@ class App extends Component {
   openSockets() {
     let jwt = localStorage.getItem('jwt')
     let socket = {};
-    socket.cable = ActionCable.createConsumer("ws://localhost:3000/cable", jwt)
+    socket.cable = ActionCable.createConsumer("wss://infinite-escarpment-51215.herokuapp.com/cable", jwt)
 
     this.roomSubscription = socket.cable.subscriptions.create({channel: "RoomsChannel"}, {
       connected: function() { console.log("rooms: connected") },             // onConnect

@@ -34,8 +34,10 @@ Rails.application.configure do
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
+  config.web_socket_server_url = "wss://infinite-escarpment-51215.herokuapp.com/cable"
+  config.action_cable.url = "wss://infinite-escarpment-51215.herokuapp.com/cable"
   # config.action_cable.url = 'wss://example.com/cable'
-  # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
+   config.action_cable.allowed_request_origins = [ 'http://cyberdelia.surge.sh' ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -82,4 +84,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.web_socket_server_url = "wss://infinite-escarpment-51215.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://infinite-escarpment-51215.herokuapp.com/', 'http://infinite-escarpment-51215.herokuapp.com/', 'http://cyberdelia.surge.sh', 'https://cyberdelia.surge']
 end
