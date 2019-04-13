@@ -14,6 +14,8 @@ import ChatView from './components/ChatView';
 import Register from './components/Register';
 import Foot from './components/Foot';
 import Header from './components/Header';
+import Denied from './components/Denied';
+import moment from 'moment';
 
 class App extends Component {
   constructor() {
@@ -37,6 +39,7 @@ class App extends Component {
     }
 
     this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
     this.handleMessageSend = this.handleMessageSend.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -64,7 +67,7 @@ class App extends Component {
     e.preventDefault()
     const jwt = await getToken(this.state.form.email, this.state.form.password)
     if (jwt === 404) {
-      alert('Invalid Credentials');
+      this.props.history.push('/denied')
     } else {
       await localStorage.setItem('jwt', jwt )
       this.props.history.push('/chat')
@@ -92,7 +95,7 @@ class App extends Component {
         motd: '',
       }
     }))
-    this.enterRoom(room.id, [{id:0, text:'Welcome! Hope some people join soon...', user:{username:'NotMuchHelp'}}])
+    this.enterRoom(room.id, [], [{id:0, text:'Welcome! Hope some people join soon...', user:{username:'NotMuchHelp'}, created_at:'00:00:00'}])
   }
 
   async handleMessageSend(e) {
@@ -106,28 +109,38 @@ class App extends Component {
     }))
   }
 
-  handleLogout() {
-    /*
-    on button click -
-      disconnect sockets this.channel.unsubscribe
-      erase local storage
-      push to login
-    */
+  handleLogout(e) {
+    e.preventDefault()
+    this.roomSubscription.unsubscribe()
+    this.messageSubscription.unsubscribe()
+    localStorage.removeItem('jwt')
+    this.props.history.push('/')
+    this.setState({
+      currentRoom: null
+    })
   }
 
   async getRooms() {
     const rooms = await getRooms()
+    await rooms.map(room => room.messages.reverse())
     this.setState({
       rooms
     })
   }
 
-  enterRoom(id, messages) {
+  enterRoom(id, messages, input=null) {
     this.setState({
       currentRoom: id,
-      currentMessages: messages
     })
-  }
+    if (input !== null) {
+      input.forEach(message => messages.unshift(message))
+    } else if ( messages.length === 0 || messages[0].user.username !== '[MOTD]' ) {
+            messages.unshift({created_at: moment.now(), id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].motd || 'No MOTD'}`, user:{username:'[MOTD]'}}, {created_at: moment.now() , id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].description || 'No Description'}` , user:{username:'[DESCRIPTION]'}})
+          }
+          this.setState({
+            currentMessages: messages
+          })
+        }
 
   exitRoom() {
     this.setState({
@@ -159,7 +172,7 @@ class App extends Component {
             if (room.id !== data.message.room.id) {
               return room
             } else {
-              room.messages.push({created_at, id, text, user})
+              room.messages.unshift({created_at, id, text, user})
               return room
             }
           })
@@ -175,7 +188,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Route path="/" render={(props) => (
+          <Header {...props} handleLogout={this.handleLogout}/>
+          )} />
         <Route exact path="/" render={(props) => (
             <Login {...props}
               handleChange={this.handleChange}
@@ -211,6 +226,9 @@ class App extends Component {
               handleCreateRoom={this.handleCreateRoom}
             />
         )} />
+      <Route exact path="/denied" render={(props) => (
+          <Denied {...props} />
+      )} />
       <Foot />
       </div>
     );

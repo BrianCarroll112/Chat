@@ -8,11 +8,13 @@ export default (props) => (
     </div>
     <div className="messages-container">
       {props.messages.map(message => (
-        <p className="message" key={message.id}>[{moment(message.created_at).format("MM/DD/YYYY hh:mm:ss")}] {message.user.username}: {message.text}</p>
+        <p className="message" key={message.id}><span className="message-time-sent">[{moment(message.created_at).format("MM/DD/YYYY hh:mm:ss")}]</span> <span className="message-username">{message.user.username}: </span> {message.text}</p>
       ))}
     </div>
     <form className="messages-input-container">
-      <input type="text"
+      <input
+        type="text"
+        autoComplete="off"
         name="message"
         value={props.message}
         onChange={(e) => props.handleChange(e)}

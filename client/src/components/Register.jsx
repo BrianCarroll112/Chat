@@ -6,6 +6,7 @@ export default (props) => (
       <form onSubmit={(e) => props.handleSubmit(e)}>
 
         <input
+          autoComplete="off"
           name="email"
           placeholder="email"
           id="email"
@@ -15,6 +16,7 @@ export default (props) => (
         />
 
         <input
+          autoComplete="off"
           name="username"
           placeholder="handle"
           id="username"
@@ -23,8 +25,9 @@ export default (props) => (
         />
 
         <input
+          autoComplete="off"
           name="picture"
-          placeholder="Coming Soon: Prof Pic"
+          placeholder="soon: pictures"
           id="picture"
           type="text"
           onChange={(e) => props.handleChange(e)}
@@ -33,6 +36,7 @@ export default (props) => (
 
 
         <input
+          autoComplete="off"
           name="password"
           placeholder="password"
           id="password"
@@ -41,7 +45,7 @@ export default (props) => (
           value={props.password}
         />
 
-        <input type="submit" value="Register" />
+      <input id="register-submit" type="submit" value="Register" />
       </form>
     </div>
   </div>

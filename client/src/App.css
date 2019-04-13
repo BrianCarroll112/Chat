@@ -1,20 +1,44 @@
 body {
   margin:0;
   padding:0;
-  background-color:gray;
+  background-color:black;
+  font-family: 'VT323', monospace;
+  color: #489449;
+  font-size:1.2em;
 }
+
+input, textarea {
+  font-family: 'VT323', monospace;
+  border:none;
+  appearance:none;
+  border-bottom: 1px solid rgba(72, 148, 73, .5);
+  color: #489449;
+}
+
+button {
+  font-family: 'VT323', monospace;
+}
+
+button, input, textarea {
+  background-color: #000;
+  color: #489449;
+  font-size:1em;
+}
+
 .App {
   height: 100vh;
   width: 100vw;
   display: grid;
   grid-template-rows: 12% auto 8%;
 }
+
 footer {
-  color:WhiteSmoke;
-  background-color:black;
+  color:#489449;
   display:flex;
   align-items: center;
   justify-content: center;
+  border-top: 1px solid rgba(72, 148, 73, .5);
+  z-index: 10;
 }
 
 p {
@@ -22,11 +46,18 @@ p {
 }
 
 header {
-  background-color:black;
-  color: WhiteSmoke;
+  color: #489449;
   display:flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(72, 148, 73, .5)
+}
+
+header img{
+  height:auto;
+  width:5vw;
+  position:absolute;
+  left:0;
 }
 
 .log-in-container {
@@ -36,12 +67,12 @@ header {
 }
 
 .log-in-inner-container {
-  border: 1px solid black;
   height:50%;
   width:25%;
   display:flex;
   justify-content: center;
   align-items: center;
+  margin-top:-10%;
 }
 
 .log-in-inner-container form{
@@ -51,6 +82,29 @@ header {
   justify-content: center;
   width:50%;
 }
+
+.log-in-inner-container input {
+  width: 135%;
+  margin-top:20%;
+}
+
+.log-in-inner-container form button {
+  border: none;
+  border-top: 2px solid rgba(72, 148, 73, .6);
+  border-bottom: 2px solid rgba(72, 148, 73, .6);
+  margin-top:10%;
+  width:135%;
+}
+.log-in-inner-container form button:first-of-type{
+  margin-top:20%;
+}
+
+.log-in-inner-container form button:hover {
+  background-color:#282828;
+  cursor:pointer;
+}
+
+
 
 .chatview-container {
   display: grid;
@@ -65,26 +119,47 @@ header {
 }
 
 .create-room-container form {
-  width:50%;
+  width:42%;
   text-align:center;
   margin: 5% auto;
   display:flex;
   flex-direction: column;
+  text-align:center;
+  margin-top:8%;
+}
+
+.create-room-container div {
+  margin-top:5%;
+}
+.create-room-container form input, textarea {
+  text-align: left;
+  height: 2em;
+  padding-bottom:0
+}
+
+.create-room-container form input {
+  line-height:2.2em;
+}
+
+textarea {
+  resize:none;
+  overflow:auto;
+  padding-top: 8px;
 }
 
 .rooms-container {
-  border-right: 1px solid black;
+  border-right: 1px solid rgba(72, 148, 73, .8);
   overflow-y: scroll;
 }
 
 .users-container {
-  border-left: 1px solid black;
+  border-left: 1px solid rgba(72, 148, 73, .5);
   overflow-y: scroll;
 }
 
 .room {
   padding:3% 2%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(72, 148, 73, .8);
   height:15%;
   display:flex;
   flex-direction: column;
@@ -92,7 +167,8 @@ header {
 }
 
 .room:hover {
-  background-color: darkgray;
+  background-color: #282828;
+  cursor:pointer;
 }
 
 .room p:first-child {
@@ -104,12 +180,12 @@ header {
 }
 
 ::-webkit-scrollbar-track {
-  background: #888;
+  background: #444;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 5px;
+  background: #222;
+  border-radius: 2px;
 }
 
 .messages-outer-container {
@@ -119,42 +195,132 @@ header {
 
 .messages-container {
   height:93%;
-  max-height: 480px;
+  max-height: 535px;
   display:flex;
-  flex-direction:column;
-  justify-content: flex-end;
+  flex-direction:column-reverse;
   padding-left: 1%;
   overflow-y: scroll;
 }
 
-.messages-overflow-container {
-  overflow-y: scroll;
-  max-height:480px;
-}
-
 .messages-input-container {
-  height: 6%;
+  height: 7%;
+  border-top: 1px solid rgba(72, 148, 73, .6);
+  overflow: hidden;
 }
 
-.messages-input-container input {
-  height:100%;
-  width:85%;
+.messages-input-container input[type="text"] {
+  height:110%;
+  width:84.2%;
+  margin-left:2px;
+  overflow-y:scroll;
 }
 
-.messages-input-container button, #submit-button{
-  height: 127%;
+.messages-input-container button, #submit-button {
+  height: 124%;
   width: 7.1%;
   border:0 none;
+  border: 1px solid rgba(72, 148, 73, .6);
+  padding-bottom: 5px;
+}
+
+#submit-button {
+  border: 2px solid rgba(72, 148, 73, .6);
+  border-right: 1px solid rgba(72, 148, 73, .6);
+  border-top: 1px solid rgba(72, 148, 73, .6);
 }
 
 .messages-input-container button {
-  border-left: 1px solid lightgray;
+  height:123%;
 }
 
 .messages-input-container button:hover, #submit-button:hover {
-  background-color: darkgray;
+  background-color: #282828;
+  cursor:pointer;
 }
 
 .message {
   padding-bottom: 1%;
+}
+
+#logout-button {
+  font-size: 50px;
+  margin-right:5px;
+  position:absolute;
+  right:10px;
+  top:12px;
+}
+#logout-button:hover {
+  font-size:60px;
+  top:8px;
+  right:8px;
+  cursor: pointer;
+}
+
+#title {
+  margin:0 auto;
+  font-size:3em;
+  font-weight:bold;
+}
+
+input[type="text"], textarea {
+  padding-left: 10px
+}
+
+#picture {
+  text-align:left;
+}
+
+input:focus, textarea:focus {
+  outline:none;
+  appearance:none;
+}
+
+#submit-room {
+  height:2.2em;
+  text-align:center;
+  margin-top:10px;
+  border-top:2px solid rgba(72, 148, 73, .5);
+  border-bottom:2px solid rgba(72, 148, 73, .5);
+  }
+
+#submit-room:hover {
+  background-color: #282828;
+  cursor:pointer;
+}
+
+.message-time-sent {
+  color: #5552ab
+}
+
+.message-username {
+  color: WhiteSmoke;
+}
+
+#register-submit {
+  border-top:2px solid rgba(72, 148, 73, .5);
+  border-bottom:2px solid rgba(72, 148, 73, .5);
+  padding: 10px 0;
+  margin-top:8px;
+}
+#register-submit:hover {
+  background-color:#282828;
+  cursor:pointer;
+}
+
+#denied-div {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#access-denied {
+  color:red;
+  font-size: 7em;
+  animation: blinker .6s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

@@ -6,6 +6,7 @@ export default (props) => (
       <form>
 
         <input
+          autoComplete="off"
           name="email"
           placeholder="email"
           id="email"
@@ -22,8 +23,7 @@ export default (props) => (
           onChange={props.handleChange}
           value={props.password}
         />
-
-        <button onClick={(e) => props.handleSubmit(e)}>Login</button>
+        <button id="login-submit" onClick={(e) => props.handleSubmit(e)}>Login</button>
         <button onClick={() => props.history.push('/register')}>Register</button>
       </form>
     </div>
