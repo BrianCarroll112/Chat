@@ -47,7 +47,7 @@ Knock.setup do |config|
   ## Configure the public key used to decode tokens, if required.
   ##
   ## Default:
-  # config.token_public_key = nil
+  config.token_public_key = '95e750747d929c1d503b409b708fd5ab7e4153a4af8f2a858dd0c151a86df46b485fd8c6b9b1f0cd613982da03c0e4389c1a47e89da060ac932d93374e271afb'
 
   ## Exception Class
   ## ---------------
