@@ -35,7 +35,7 @@ class App extends Component {
       rooms: [],
       currentRoom: null,
       currentMessages: [],
-      currentRoomBanner: {},
+      userList: [],
     }
 
     this.handleLogin = this.handleLogin.bind(this)
@@ -175,8 +175,34 @@ class App extends Component {
               room.messages.unshift({created_at, id, text, user})
               return room
             }
-          })
-        }))
+        })}))
+        const removeUser = () => {
+          this.setState(prevState => ({
+            userList: [
+              ...prevState.userList.filter(ele => ele.userId !== user.id && ele.roomId !== data.message.room.id)
+            ]
+          }))
+        }
+        const existingUserMessage = this.state.userList.find(ele => Object.values(ele).includes(data.message.room.id) && Object.values(ele).includes(user.id))
+        if (existingUserMessage) {
+          clearTimeout(existingUserMessage.timeout)
+          const timeout = setTimeout(removeUser, 10000)
+          existingUserMessage.timeout = timeout
+
+        } else {
+          const timeout = setTimeout(removeUser, 10000)
+          this.setState(prevState => ({
+            userList: [...prevState.userList,
+              {username: user.username,
+               userId: user.id,
+               roomId: data.message.room.id,
+               roomName: data.message.room.name,
+               timeout
+               }
+            ]
+          }))
+        }
+
       }
     })
   }
@@ -224,6 +250,7 @@ class App extends Component {
               description={this.state.form.description}
               motd={this.state.form.motd}
               handleCreateRoom={this.handleCreateRoom}
+              userList={this.state.userList}
             />
         )} />
       <Route exact path="/denied" render={(props) => (

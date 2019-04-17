@@ -56,7 +56,18 @@ class ChatView extends Component {
         </div>
 
         <div className="users-container">
-          <p>Coming Soon: Active User List</p>
+          {this.props.currentRoom ? (
+            this.props.userList.map(user => (
+              <div className="user">
+                <p>Username: <span>{user.username}</span></p>
+                <p>Room: <span>{user.roomName}</span></p>
+              </div>
+            ))
+          ) : (this.props.userList.map(user => (
+            <div className="user">
+              <p>Username: <span>{user.username}</span></p>
+            </div>
+          )))}
         </div>
 
       </div>
