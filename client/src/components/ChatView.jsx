@@ -57,17 +57,20 @@ class ChatView extends Component {
 
         <div className="users-container">
           {this.props.currentRoom ? (
+            this.props.userList.map(user => {
+              if (user.roomId === this.props.currentRoom){
+              return (
+                <div className="user">
+                  <p>Username: <span>{user.username}</span></p>
+                </div>
+            )}})) :
+          (
             this.props.userList.map(user => (
               <div className="user">
                 <p>Username: <span>{user.username}</span></p>
                 <p>Room: <span>{user.roomName}</span></p>
               </div>
-            ))
-          ) : (this.props.userList.map(user => (
-            <div className="user">
-              <p>Username: <span>{user.username}</span></p>
-            </div>
-          )))}
+            )))}
         </div>
 
       </div>
