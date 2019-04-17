@@ -108,8 +108,14 @@ header img{
 
 .chatview-container {
   display: grid;
-  grid-template-columns: 17% auto 17%
+  grid-template-columns: 17% auto 17%;
+  height:100%;
 }
+
+.chat-container {
+  height:100%;
+}
+/* do the responsive stuff on chatview container, maybe just height? where does chat container width end */
 
 .create-room-container {
   height:100%;
@@ -195,7 +201,7 @@ textarea {
 
 .messages-container {
   height:93%;
-  max-height: 535px;
+  /* max-height: 450px; */
   display:flex;
   flex-direction:column-reverse;
   padding-left: 1%;
@@ -322,5 +328,17 @@ input:focus, textarea:focus {
 @keyframes blinker {
   50% {
     opacity: 0;
+  }
+}
+
+@media only screen and (max-height: 900px) {
+  .messages-container {
+    max-height: 534px;
+  }
+}
+
+@media only screen and (max-height: 720px) {
+  .messages-container {
+    max-height: 463px;
   }
 }
