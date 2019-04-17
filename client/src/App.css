@@ -306,7 +306,7 @@ input:focus, textarea:focus {
   border-top:2px solid rgba(72, 148, 73, .5);
   border-bottom:2px solid rgba(72, 148, 73, .5);
   padding: 10px 0;
-  margin-top:8px;
+  margin-top:25px;
 }
 #register-submit:hover {
   background-color:#282828;

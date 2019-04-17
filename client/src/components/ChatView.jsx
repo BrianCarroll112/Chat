@@ -28,7 +28,7 @@ class ChatView extends Component {
                   enterRoom={this.props.enterRoom}
                 />
               )
-            })}
+            }).reverse()}
           </div>
 
         <div className="chat-container">
