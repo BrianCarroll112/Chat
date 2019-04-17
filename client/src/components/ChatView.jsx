@@ -9,9 +9,12 @@ class ChatView extends Component {
   }
 
   async componentDidMount() {
-    await this.props.getRooms()
-    this.props.openSockets()
-  }
+    if (localStorage.getItem('jwt')) {
+      await this.props.getRooms()
+      this.props.openSockets()
+    } else
+      this.props.history.push('/')
+    }
 
   render() {
     return (

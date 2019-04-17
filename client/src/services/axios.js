@@ -10,7 +10,7 @@ const getToken =  async (email, password) => {
     const resp = await api.post(`/user_token`, {auth: {email, password}})
     return (resp.data.jwt)
   } catch(e) {
-    return (404)
+    return (null)
   }
 }
 
