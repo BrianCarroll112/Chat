@@ -41,7 +41,9 @@ class ChatView extends Component {
               exitRoom={this.props.exitRoom}
               handleSubmit={this.props.handleMessageSend}
               handleChange={this.props.handleChange}
-              message={this.props.message} />
+              message={this.props.message}
+              currentRoom={this.props.currentRoom}
+              rooms={this.props.rooms} />
           ) : (
             <CreateRoom
               name={this.props.name}
