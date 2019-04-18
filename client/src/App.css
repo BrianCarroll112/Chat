@@ -108,8 +108,14 @@ header img{
 
 .chatview-container {
   display: grid;
-  grid-template-columns: 17% auto 17%
+  grid-template-columns: 17% auto 17%;
+  height:100%;
 }
+
+.chat-container {
+  height:100%;
+}
+/* do the responsive stuff on chatview container, maybe just height? where does chat container width end */
 
 .create-room-container {
   height:100%;
@@ -129,7 +135,6 @@ header img{
 }
 
 .create-room-container div {
-  margin-top:5%;
 }
 .create-room-container form input, textarea {
   text-align: left;
@@ -180,22 +185,45 @@ textarea {
 }
 
 ::-webkit-scrollbar-track {
-  background: #444;
+  background: #222;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: #444;
   border-radius: 2px;
 }
 
 .messages-outer-container {
+  position: relative;
   height:100%;
   width:100%;
 }
 
+.room-info {
+  left:50%
+}
+
+.room-info, .room-info2 {
+  position:absolute;
+  float:left;
+  top:2%;
+  background-color:#222;
+  padding:5px;
+  padding-right:10px;
+  padding-left:10px;
+}
+.room-info2 {
+right:50%;
+}
+
+.room-info span, .room-info2 span {
+  color:WhiteSmoke;
+}
+
+
 .messages-container {
   height:93%;
-  max-height: 535px;
+  /* max-height: 450px; */
   display:flex;
   flex-direction:column-reverse;
   padding-left: 1%;
@@ -300,7 +328,7 @@ input:focus, textarea:focus {
   border-top:2px solid rgba(72, 148, 73, .5);
   border-bottom:2px solid rgba(72, 148, 73, .5);
   padding: 10px 0;
-  margin-top:8px;
+  margin-top:25px;
 }
 #register-submit:hover {
   background-color:#282828;
@@ -323,4 +351,37 @@ input:focus, textarea:focus {
   50% {
     opacity: 0;
   }
+}
+
+@media only screen and (max-height: 900px) {
+  .messages-container {
+    max-height: 534px;
+  }
+}
+
+@media only screen and (max-height: 720px) {
+  .messages-container {
+    max-height: 463px;
+  }
+}
+
+.user {
+  padding:3% 2%;
+  border-bottom: 1px solid rgba(72, 148, 73, .8);
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user:hover {
+  background-color: #282828;
+  cursor:pointer;
+}
+
+.user p span {
+  color:WhiteSmoke;
+}
+
+.user p:last-of-type {
+  margin-top:1%;
 }

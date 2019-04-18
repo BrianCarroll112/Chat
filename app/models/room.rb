@@ -3,5 +3,5 @@ class Room < ApplicationRecord
   validates :motd, presence: true
   validates :description, presence: true
   belongs_to :user, optional: true
-  has_many :messages
+  has_many :messages, dependent: :destroy
 end

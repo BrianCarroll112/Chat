@@ -8,10 +8,18 @@ class ChatView extends Component {
     super(props)
   }
 
-  async componentDidMount() {
-    await this.props.getRooms()
-    this.props.openSockets()
+  handleClick(e, roomId) {
+    e.preventDefault()
+    this.props.changeCurrentRoom(roomId);
   }
+
+  async componentDidMount() {
+    if (localStorage.getItem('jwt')) {
+      await this.props.getRooms()
+      this.props.openSockets()
+    } else
+      this.props.history.push('/')
+    }
 
   render() {
     return (
@@ -28,7 +36,7 @@ class ChatView extends Component {
                   enterRoom={this.props.enterRoom}
                 />
               )
-            })}
+            }).reverse()}
           </div>
 
         <div className="chat-container">
@@ -38,7 +46,9 @@ class ChatView extends Component {
               exitRoom={this.props.exitRoom}
               handleSubmit={this.props.handleMessageSend}
               handleChange={this.props.handleChange}
-              message={this.props.message} />
+              message={this.props.message}
+              currentRoom={this.props.currentRoom}
+              rooms={this.props.rooms} />
           ) : (
             <CreateRoom
               name={this.props.name}
@@ -51,7 +61,24 @@ class ChatView extends Component {
         </div>
 
         <div className="users-container">
-          <p>Coming Soon: Active User List</p>
+          {this.props.currentRoom ? (
+            this.props.userList.map(user => {
+              if (user.roomId === this.props.currentRoom){
+                return (
+                  <div className="user">
+                    <p>Username: <span>{user.username}</span></p>
+                  </div>
+              )}})) :
+          (
+            this.props.userList.map(user => {
+              return (
+                <div
+                  className="user"
+                  onClick={(e) => this.handleClick(e, user.roomId)}>
+                  <p>Username: <span>{user.username}</span></p>
+                  <p>Room: <span>{user.roomName}</span></p>
+                </div>
+              )}))}
         </div>
 
       </div>

@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
       head :ok
     end
 
-    #handle / commands, call other method with a new giphy key in broadcast w img src to conditionally check on front end
+    #handle / commands
   end
 
   private

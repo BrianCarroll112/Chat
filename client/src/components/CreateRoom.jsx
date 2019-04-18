@@ -4,7 +4,9 @@ export default (props) => (
   <div className="create-room-container">
     <div>
       <h2> Create a Hangout </h2>
-      <h3>or choose an existing room from the list</h3>
+      <h3> OR </h3>
+      <h4>choose an existing room from the room list</h4>
+      <h4>join a friend from the user list </h4>
     </div>
     <form onSubmit={(e) => props.handleSubmit(e)}>
       <input
