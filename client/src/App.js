@@ -6,7 +6,9 @@ import {
   createUser,
   getRooms,
   sendMessage,
-  createRoom } from './services/axios';
+  createRoom,
+  deleteRoom,
+  setMotd } from './services/axios';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Login from './components/Login';
@@ -101,7 +103,16 @@ class App extends Component {
 
   async handleMessageSend(e) {
     e.preventDefault()
-    await sendMessage(this.state.form.message, this.state.currentRoom)
+    if (this.state.form.message === '/delete_room'){
+      await deleteRoom(this.state.currentRoom)
+    } else if (this.state.form.message.split(' ')[0] === '/motd') {
+      const msg = this.state.form.message.split(' ')
+      msg.shift()
+      const newMotd = msg.join(' ')
+      await setMotd(this.state.currentRoom, newMotd)
+    } else {
+      await sendMessage(this.state.form.message, this.state.currentRoom)
+    }
     this.setState(prevState => ({
       form: {
         ...prevState.form,
@@ -136,7 +147,7 @@ class App extends Component {
     if (input !== null) {
       input.forEach(message => messages.unshift(message))
     } else if ( messages.length === 0 || messages[0].user.username !== '[MOTD]' ) {
-            messages.unshift({created_at: moment.now(), id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].motd || 'No MOTD'}`, user:{username:'[MOTD]'}}, {created_at: moment.now() , id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms[id-1].description || 'No Description'}` , user:{username:'[DESCRIPTION]'}})
+            messages.unshift({created_at: moment.now(), id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms.find(room => room.id=== id).motd || 'No MOTD'}`, user:{username:'[MOTD]'}}, {created_at: moment.now() , id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms.find(room => room.id=== id).description || 'No Description'}` , user:{username:'[DESCRIPTION]'}})
           }
           this.setState({
             currentMessages: messages
@@ -164,10 +175,32 @@ class App extends Component {
       connected: function() { console.log("rooms: connected") },             // onConnect
       disconnected: function() { console.log("rooms: disconnected") },       // onDisconnect
       received: (data) => {
-        const room = data.room
-        this.setState(prevState => ({
-          rooms: [...prevState.rooms, room ]
-        }))
+        if (data.delete) {
+          if (this.state.currentRoom === data.roomId) {
+            this.setState({
+              currentRoom: null
+            })
+          }
+          this.setState(prevState => ({
+            rooms: [...prevState.rooms.filter(room => data.roomId !== room.id)]
+          }))
+        } else if (data.update) {
+          this.setState(prevState => ({
+            rooms: [...prevState.rooms.map(room => {
+              if (room.id === data.roomId) {
+                room.motd = data.motd
+                return room
+              }
+              return room
+            })]
+          }))
+        } else {
+          const room = data.room
+          this.setState(prevState => ({
+            rooms: [...prevState.rooms, room ]
+          }))
+        }
+
     }})
     this.messageSubscription = socket.cable.subscriptions.create({channel: "MessagesChannel"}, {
       connected: function() { console.log("messages: connected") },             // onConnect
@@ -193,11 +226,11 @@ class App extends Component {
         const existingUserMessage = this.state.userList.find(ele => Object.values(ele).includes(data.message.room.id) && Object.values(ele).includes(user.id))
         if (existingUserMessage) {
           clearTimeout(existingUserMessage.timeout)
-          const timeout = setTimeout(removeUser, 100000)
+          const timeout = setTimeout(removeUser, 10000)
           existingUserMessage.timeout = timeout
 
         } else {
-          const timeout = setTimeout(removeUser, 100000)
+          const timeout = setTimeout(removeUser, 10000)
           this.setState(prevState => ({
             userList: [...prevState.userList,
               {username: user.username,
@@ -215,7 +248,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
   }
 
   render() {

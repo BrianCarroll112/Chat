@@ -5,8 +5,8 @@ export default (props) => {
   const room = props.rooms.find(room => room.id == props.currentRoom)
   return (
     <div className="messages-outer-container">
-        <span className="room-info">Room: <span>{room.name}</span></span>
-        <span className="room-info2">Owner: <span>{room.user.username}</span></span>
+        <span className="room-info">Room: <span>{room && room.name}</span></span>
+        <span className="room-info2">Owner: <span>{room && room.user.username}</span></span>
       <div className="messages-container">
         {props.messages.map(message => (
           <p className="message" key={message.id}><span className="message-time-sent">[{moment(message.created_at).format("MM/DD/YYYY hh:mm:ss")}]</span> <span className="message-username">{message.user.username}: </span> {message.text}</p>

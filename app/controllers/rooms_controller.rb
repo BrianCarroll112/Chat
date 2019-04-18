@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user, :set_user, except: [:index]
+  before_action :set_room, only: [:update, :destroy]
 
   def index
     roomData = Room.all
@@ -27,12 +28,27 @@ class RoomsController < ApplicationController
     end
   end
 
+  def destroy
+    to_send = {delete: true, roomId: @room[:id]}
+    ActionCable.server.broadcast 'rooms_channel', to_send
+    @room.destroy
+  end
+
+  def update
+    @room.update!(room_params)
+    to_send = {update: true, roomId: @room[:id], motd: @room[:motd]}
+    ActionCable.server.broadcast 'rooms_channel', to_send
+  end
   private
 
   def set_user
     @user = ActiveModelSerializers::Adapter::Json.new(
       UserSerializer.new(current_user)
     ).serializable_hash
+  end
+
+  def set_room
+    @room = Room.find(params[:id])
   end
 
   def room_params
