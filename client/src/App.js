@@ -192,7 +192,8 @@ class App extends Component {
                 return room
               }
               return room
-            })]
+            })],
+            currentMessages: [{created_at: moment.now(), id: ((Math.random() * 5000) + 3000), text: `${this.state.rooms.find(room => room.id=== data.roomId).motd || 'No MOTD'}`, user:{username:'[MOTD]'}}, ...prevState.currentMessages]
           }))
         } else {
           const room = data.room

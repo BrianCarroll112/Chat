@@ -30,14 +30,16 @@ class RoomsController < ApplicationController
 
   def destroy
     to_send = {delete: true, roomId: @room[:id]}
-    ActionCable.server.broadcast 'rooms_channel', to_send
-    @room.destroy
+    p @user[:user][:id]
+    #p @room [:user_id]
+    ActionCable.server.broadcast 'rooms_channel', to_send if @user[:user][:id] == @room[:user_id]
+    @room.destroy if @user[:user][:id] == @room[:user_id]
   end
 
   def update
-    @room.update!(room_params)
-    to_send = {update: true, roomId: @room[:id], motd: @room[:motd]}
-    ActionCable.server.broadcast 'rooms_channel', to_send
+    @room.update!(room_params) if @user[:user][:id] == @room[:user_id]
+    to_send = {update: true, roomId: @room[:id], motd: @room[:motd]} if @user[:user][:id] == @room[:user_id]
+    ActionCable.server.broadcast 'rooms_channel', to_send if @user[:user][:id] == @room[:user_id]
   end
   private
 
