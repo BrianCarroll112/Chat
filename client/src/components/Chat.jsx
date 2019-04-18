@@ -3,7 +3,6 @@ const moment = require('../../node_modules/moment')
 
 export default (props) => {
   const room = props.rooms.find(room => room.id == props.currentRoom)
-  console.log(room)
   return (
     <div className="messages-outer-container">
         <span className="room-info">Room: <span>{room.name}</span></span>

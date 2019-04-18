@@ -48,6 +48,7 @@ class App extends Component {
     this.handleCreateRoom = this.handleCreateRoom.bind(this)
     this.enterRoom = this.enterRoom.bind(this)
     this.exitRoom = this.exitRoom.bind(this)
+    this.changeCurrentRoom = this.changeCurrentRoom.bind(this)
   }
 
 
@@ -148,6 +149,12 @@ class App extends Component {
     })
   }
 
+  changeCurrentRoom(num) {
+    this.setState({
+      currentRoom: num
+    })
+  }
+
   openSockets() {
     let jwt = localStorage.getItem('jwt')
     let socket = {};
@@ -186,11 +193,11 @@ class App extends Component {
         const existingUserMessage = this.state.userList.find(ele => Object.values(ele).includes(data.message.room.id) && Object.values(ele).includes(user.id))
         if (existingUserMessage) {
           clearTimeout(existingUserMessage.timeout)
-          const timeout = setTimeout(removeUser, 10000)
+          const timeout = setTimeout(removeUser, 100000)
           existingUserMessage.timeout = timeout
 
         } else {
-          const timeout = setTimeout(removeUser, 10000)
+          const timeout = setTimeout(removeUser, 100000)
           this.setState(prevState => ({
             userList: [...prevState.userList,
               {username: user.username,
@@ -251,6 +258,7 @@ class App extends Component {
               motd={this.state.form.motd}
               handleCreateRoom={this.handleCreateRoom}
               userList={this.state.userList}
+              changeCurrentRoom={this.changeCurrentRoom}
             />
         )} />
       <Route exact path="/denied" render={(props) => (

@@ -8,6 +8,11 @@ class ChatView extends Component {
     super(props)
   }
 
+  handleClick(e, roomId) {
+    e.preventDefault()
+    this.props.changeCurrentRoom(roomId);
+  }
+
   async componentDidMount() {
     if (localStorage.getItem('jwt')) {
       await this.props.getRooms()
@@ -59,18 +64,21 @@ class ChatView extends Component {
           {this.props.currentRoom ? (
             this.props.userList.map(user => {
               if (user.roomId === this.props.currentRoom){
-              return (
-                <div className="user">
-                  <p>Username: <span>{user.username}</span></p>
-                </div>
-            )}})) :
+                return (
+                  <div className="user">
+                    <p>Username: <span>{user.username}</span></p>
+                  </div>
+              )}})) :
           (
-            this.props.userList.map(user => (
-              <div className="user">
-                <p>Username: <span>{user.username}</span></p>
-                <p>Room: <span>{user.roomName}</span></p>
-              </div>
-            )))}
+            this.props.userList.map(user => {
+              return (
+                <div
+                  className="user"
+                  onClick={(e) => this.handleClick(e, user.roomId)}>
+                  <p>Username: <span>{user.username}</span></p>
+                  <p>Room: <span>{user.roomName}</span></p>
+                </div>
+              )}))}
         </div>
 
       </div>
